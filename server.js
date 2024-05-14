@@ -1,5 +1,6 @@
 import express from 'express'
 import { connection } from './db/db.js'
+import winston from 'winston'
 
 import { produtoRoute } from './routes/produtos.routes.js'
 
@@ -22,3 +23,5 @@ produtoRoute(app)
 app.listen(PORT, () => {
   console.log(`Example app listening on port http://${HOST}:${PORT}`)
 })
+
+
