@@ -52,36 +52,33 @@ export const produtoService = {
   //   return res.status(500).json({
   //     message: `Produto id: ${id} alterado com sucesso`,
   //   });
-    
+
   // },
 
-  update:  async (req, res) => {
-    const produto = req.body
-    const id = req.params.id
+  update: async (req, res) => {
+    const produto = req.body;
+    const id = req.params.id;
 
-    if(!produto) {
+    if (!produto) {
       return res.status(400).json({
-        message: "Porfavor informar objeto da requisição"
-      })
+        message: "Porfavor informar objeto da requisição",
+      });
     }
 
-    await Produto.update(
-      produto,
-      {
-        where: {
-          id: id
-        }
-      }
-    )
+    await Produto.update(produto, {
+      where: {
+        id: id,
+      },
+    });
 
     return res.status(200).json({
-      message: "produto atualizado com sucesso"
-    })
+      message: "produto atualizado com sucesso",
+    });
   },
 
-  delete: async (req, res) => { 
-    const id = req.params.id
-    const produto = await Produto.findByPk(id)
+  delete: async (req, res) => {
+    const id = req.params.id;
+    const produto = await Produto.findByPk(id);
 
     if (!produto) {
       return res.status(400).json({
@@ -92,5 +89,16 @@ export const produtoService = {
     return res.status(500).json({
       message: `Produto deletado com sucesso`,
     });
-  }
+  },
+
+  getAtivo: async (req, res) => {
+    const ativo = req.params.ativo === "true" ? true : false;
+    const produtos = await Produto.findAll({
+      where: {
+        ativo: ativo,
+      },
+    });
+
+    return res.status(200).json(produtos);
+  },
 };

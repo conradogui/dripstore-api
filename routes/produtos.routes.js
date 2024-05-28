@@ -9,6 +9,7 @@ export const produtoRoute = (app) => {
     route.post("/", produtoService.create)
     route.put("/:id", produtoService.update)
     route.delete("/:id", produtoService.delete)
+    route.get("/ativo/:ativo", produtoService.getAtivo)
 
     app.use('/api/produto', route)
 }
