@@ -1,10 +1,13 @@
 import express from 'express'
 import { connection } from './db/db.js'
 import winston from 'winston'
+import cors from 'cors'
 
 import { produtoRoute } from './routes/produtos.routes.js'
 
 const app = express()
+
+app.use(cors())
 
 const HOST = 'localhost'
 const PORT = 5000
