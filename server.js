@@ -7,7 +7,11 @@ import { produtoRoute } from './routes/produtos.routes.js'
 
 const app = express()
 
-app.use(cors())
+const confCors = {
+  origin: 'http://localhost:5173'
+}
+
+app.use(cors(confCors))
 
 const HOST = 'localhost'
 const PORT = 5000
