@@ -1,35 +1,27 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../db/database.js";
 
-export const Produto = sequelize.define(
-  "produtos",
+export const User = sequelize.define(
+  "usuarios",
   {
     nome: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    descricao: {
+    email: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    desconto: {
-      type: DataTypes.DECIMAL,
-      allowNull: false,
-    },
-    preco: {
-      type: DataTypes.DECIMAL,
-      allowNull: false,
-    },
-    ativo: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true,
-    },
-    categoria: {
-      type: DataTypes.DECIMAL,
+    senha: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     data_cadastro: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: new Date(),
+    },
+    data_atualizacao: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: new Date(),

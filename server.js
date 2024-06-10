@@ -4,6 +4,7 @@ import winston from 'winston'
 import cors from 'cors'
 
 import { produtoRoute } from './routes/produtos.routes.js'
+import { userRoute } from './routes/usuario.routes.js'
 
 const app = express()
 
@@ -31,6 +32,8 @@ app.get('/', (req, res) => {
 })
 
 produtoRoute(app)
+userRoute(app)
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port http://${HOST}:${PORT}`)
