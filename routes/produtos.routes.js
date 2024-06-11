@@ -1,15 +1,14 @@
-import express from 'express'
-import { produtoService } from '../services/produtos.service.js'
+import express from "express";
+import { produtoService } from "../services/produtos.service.js";
 
-export const produtoRoute = (app) => {
-    var route = express.Router()
+const routerProduto = express.Router();
 
-    route.get("/", produtoService.getAll)
-    route.get("/:id", produtoService.getById)
-    route.post("/", produtoService.create)
-    route.put("/:id", produtoService.update)
-    route.delete("/:id", produtoService.delete)
-    route.get("/ativo/:ativo", produtoService.getAtivo)
+routerProduto
+  .get("/", produtoService.getAll)
+  .get("/:id", produtoService.getById)
+  .post("/", produtoService.create)
+  .put("/:id", produtoService.update)
+  .delete("/:id", produtoService.delete)
+  .get("/ativo/:ativo", produtoService.getAtivo);
 
-    app.use('/api/produto', route)
-}
+export default routerProduto;

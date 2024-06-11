@@ -1,15 +1,13 @@
-import express from 'express'
-import { userService } from '../services/usuario.service.js'
+import express from "express";
+import { userService } from "../services/usuario.service.js";
 
-export const userRoute = (app) => {
-    var route = express.Router()
+const routerUsuario = express.Router();
 
-    route.get("/", userService.getAll)
-    route.get("/:id", userService.getById)
-    route.post("/", userService.create)
-    route.put("/:id", userService.update)
-    route.delete("/:id", userService.delete)
+routerUsuario
+  .get("/", userService.getAll)
+  .get("/:id", userService.getById)
+  .post("/", userService.create)
+  .put("/:id", userService.update)
+  .delete("/:id", userService.delete);
 
-    app.use('/api/usuario', route)
-    
-}
+export default routerUsuario;

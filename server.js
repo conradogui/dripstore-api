@@ -2,9 +2,7 @@ import express from 'express'
 import { connection } from './db/db.js'
 import winston from 'winston'
 import cors from 'cors'
-
-import { produtoRoute } from './routes/produtos.routes.js'
-import { userRoute } from './routes/usuario.routes.js'
+import { routes } from './routes/index.js'
 
 const app = express()
 
@@ -31,9 +29,7 @@ app.get('/', (req, res) => {
     })
 })
 
-produtoRoute(app)
-userRoute(app)
-
+routes(app)
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port http://${HOST}:${PORT}`)

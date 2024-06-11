@@ -26,7 +26,7 @@ export const Produto = sequelize.define(
       defaultValue: true,
     },
     categoria: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     data_cadastro: {

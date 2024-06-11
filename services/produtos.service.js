@@ -1,4 +1,5 @@
-import { Produto } from "../model/produto.model.js";
+import db from "../model/index.js";
+const Produto = db.produto
 
 export const produtoService = {
   getAll: async (req, res) => {
