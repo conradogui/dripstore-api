@@ -31,5 +31,6 @@ export const User = sequelize.define(
     timestamps: true,
     createdAt: "data_cadastro",
     updatedAt: false,
+    tableName: 'usuario'
   }
 );
