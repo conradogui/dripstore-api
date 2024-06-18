@@ -9,10 +9,17 @@ export const connection = async () => {
   }
 };
 
+const iniciarPerfis = (perfil) => {
+  if(perfil !== '') {
+    /** fazer */
+  }
+}
+
 sequelize
   .sync({ force: true })
   .then(() => {
     console.log("[INFO] DROP e ressincroniza o DB");
+    iniciarPerfis()
   })
   .catch((error) => {
     console.log(`[ERROR] Erro ao sincronizar o db: ${error}`);
