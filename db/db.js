@@ -1,3 +1,4 @@
+import db from "../model/index.js";
 import { sequelize } from "./database.js";
 
 export const connection = async () => {
@@ -9,10 +10,29 @@ export const connection = async () => {
   }
 };
 
-const iniciarPerfis = (perfil) => {
-  if(perfil !== '') {
-    /** fazer */
+const iniciarPerfis = async () => {
+  const perfis = await db.perfil.findAll();
+
+  if (perfis.length === 0) {
+    db.perfil.create({
+      id: 1,
+      nome: "usuario",
+      codigo: 'USER'
+    });
+
+    db.perfil.create({
+      id: 2,
+      nome: "moderador",
+      codigo: 'MOD'
+    });
+
+    db.perfil.create({
+      id: 3,
+      nome: "admin",
+      codigo: 'ADMIN'
+    });
   }
+
 }
 
 sequelize
