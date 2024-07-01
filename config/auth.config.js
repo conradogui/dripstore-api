@@ -1,1 +1,1 @@
-export const secret = AUTH_CONFIG
+export const secret = process.AUTH_CONFIG
