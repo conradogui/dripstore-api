@@ -1,9 +1,10 @@
 import db from "../model/index.js";
 import { secret } from "../config/auth.config.js";
 const Usuario = db.usuario;
+import jwt from "jsonwebtoken"
 
 const verifyToken = (req, res, next) => {
-  let token = req.headers("Authorization");
+  let token = req.headers["authorization"];
 
   if (!token) {
     return res.status(403).send({
@@ -43,7 +44,7 @@ const isModerator = (req, res, next) => {
   Usuario.findByPk(req.userId).then(usuario => {
       usuario.getPerfils().then(perfis => {
           for (let i = 0; i < perfis.length; i++) {
-              if (perfis[i].nome === "moderator") {
+              if (perfis[i].nome === "moderador") {
                   next();
                   return;
               }
@@ -60,7 +61,7 @@ const isModeratorOrAdmin = (req, res, next) => {
   Usuario.findByPk(req.userId).then(usuario => {
       usuario.getPerfils().then(perfis => {
           for (let i = 0; i < perfis.length; i++) {
-              if (perfis[i].nome === "moderator") {
+              if (perfis[i].nome === "moderador") {
                   next();
                   return;
               }

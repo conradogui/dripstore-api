@@ -51,39 +51,49 @@ export const authService = {
       },
     });
 
-    if (!usuarioDB) {
-      return res.status(404).send({
-        message: `Usuario não cadastrado`,
-      });
-    }
-
-    var passwordIsValid = compareSync(senha, usuarioDB.senha)
-
-    if(!passwordIsValid) {
-      return res.status(401).send({
-        token: null,
-        messsage: "Senha inválida! Favor digite a senha novamente!"
-      })
-    }
-    const token = jwt.sign({id: usuarioDB.id},secret, {
-      algorithm: 'HS256',
-      allowInsecureKeySizes: true,
-      expiresIn: 86400, //24h
-    })
-
-    var authorities = []
-    usuarioDB.getPerfils().then(perfis => {
-      for (let i = 0; i < perfis.length; i++) {
-        authorities.push("PERFIL_" + perfis[i])
+    try {
+      if (!usuarioDB) {
+          return res.status(404).send({ message: "User Not found." });
       }
-      res.status(200).send({
-        id: usuarioDB.id,
-        nome: usuarioDB.nome,
-        email: usuarioDB.email,
-        perfis: authorities,
-        token
-      })
-    })
-  },
+
+      var passwordIsValid = compareSync(
+          req.body.senha,
+          usuarioDB.senha
+      );
+
+      if (!passwordIsValid) {
+          return res.status(401).send({
+              token: null,
+              message: "Invalid Password!"
+          });
+      }
+      console.log(secret)
+
+      const token = jwt.sign({ id: usuarioDB.id },
+          secret,
+          {
+              algorithm: 'HS256',
+              allowInsecureKeySizes: true,
+              expiresIn: 86400, // 24 hours
+          });
+
+      var authorities = [];
+      usuarioDB.getPerfils().then(perfis => {
+          for (let i = 0; i < perfis.length; i++) {
+              authorities.push("PERFIL_" + perfis[i].nome.toUpperCase());
+          }
+          res.status(200).send({
+              id: usuarioDB.id,
+              nome: usuarioDB.nome,
+              email: usuarioDB.email,
+              perfis: authorities,
+              token
+          });
+      });
+  } catch (error) {
+      console.log(`error`, error);
+      res.status(500).send({ message: error.message });
+  }
+},
   logout: (req, res) => {},
 };

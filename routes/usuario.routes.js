@@ -1,12 +1,13 @@
 import express from "express";
 import { userService } from "../services/usuario.service.js";
+import { authJwt } from "../middleware/authJwt.js";
 
 const routerUsuario = express.Router();
 
 routerUsuario
-  .get("/", userService.getAll)
+  .get("/", [authJwt.verifyToken, authJwt.isAdmin], userService.getAll)
   .get("/:id", userService.getById)
-  .post("/", userService.create)
+  .post('/', [authJwt.verifyToken, authJwt.isAdmin], userService.create)
   .put("/:id", userService.update)
   .delete("/:id", userService.delete);
 
