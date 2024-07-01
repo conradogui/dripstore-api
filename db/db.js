@@ -36,7 +36,7 @@ const iniciarPerfis = async () => {
 }
 
 sequelize
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => {
     console.log("[INFO] DROP e ressincroniza o DB");
     iniciarPerfis()
