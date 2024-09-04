@@ -7,7 +7,7 @@ import { routes } from './routes/index.js'
 const app = express()
 
 const confCors = {
-  origin: 'http://localhost:5173'
+  origin: '*'
 }
 
 app.use(cors(confCors))
