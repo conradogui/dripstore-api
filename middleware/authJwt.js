@@ -11,6 +11,15 @@ const verifyToken = (req, res, next) => {
       message: "Nenhum token informado",
     });
   }
+
+  if (token.startsWith("Bearer ")) {
+    token = token.slice(7, token.length); 
+  } else {
+    return res.status(401).send({
+      message: "Formato do token inválido!",
+    });
+  }
+
   jwt.verify(token, secret, (err, decoded) => {
     if (err) {
       return res.status(401).send({
