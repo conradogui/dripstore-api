@@ -87,7 +87,7 @@ export const produtoService = {
       });
     }
     await produto.destroy();
-    return res.status(500).json({
+    return res.status(200).json({
       message: `Produto deletado com sucesso`,
     });
   },
