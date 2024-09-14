@@ -4,6 +4,11 @@ import { sequelize } from "../db/database.js";
 export const Produto = sequelize.define(
   "produtos",
   {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     nome: {
       type: DataTypes.STRING,
       allowNull: false,
