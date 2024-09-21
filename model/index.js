@@ -4,6 +4,7 @@ import { Produto } from "./produto.model.js"
 import {Carrinho} from "./carrinho.model.js"
 import {User} from "./user.model.js"
 import { Perfil } from "./perfil.model.js"
+import { Curtidos } from "./curtidos.model.js"
 
 
 
@@ -11,6 +12,7 @@ const db = {}
 
 db.produto = Produto
 db.carrinho = Carrinho
+db.curtidos = Curtidos
 db.usuario = User
 db.perfil = Perfil
 
