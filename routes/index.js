@@ -3,6 +3,7 @@ import routerProduto from "./produtos.routes.js"
 import routerUsuario from "./usuario.routes.js"
 import routerCarrinho from "./carrinho.routes.js"
 import routerCurtidos from "./curtidos.routes.js"
+import routerComentarios from "./comentarios.routes.js"
 
 export const routes = (app) => {
     app.use('/api/produto', routerProduto)
@@ -10,4 +11,5 @@ export const routes = (app) => {
     app.use('/api/auth', routerAuth)
     app.use('/api/carrinho', routerCarrinho)
     app.use('/api/curtidos', routerCurtidos)
-}
+    app.use('/api/comentarios', routerComentarios)
+} 
