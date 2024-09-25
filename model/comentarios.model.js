@@ -2,7 +2,6 @@ import { DataTypes } from "sequelize";
 import { sequelize } from "../db/database.js";
 import { Produto } from "./produto.model.js";
 import { User } from "./user.model.js";
-import { Perfil } from "./perfil.model.js";
 
 export const Comentario = sequelize.define(
   "comentario",
@@ -32,14 +31,6 @@ export const Comentario = sequelize.define(
         key: "id",
       },
     },
-    userType: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "perfil",
-        key: "id",
-      },
-    },
   },
   {
     timestamps: true,
@@ -47,10 +38,7 @@ export const Comentario = sequelize.define(
   }
 );
 
-// Definição das relações
 Comentario.belongsTo(User, { foreignKey: "userId" });
 Comentario.belongsTo(Produto, { foreignKey: "produtoId" });
-Comentario.belongsTo(Perfil, { foreignKey: "userType" });
 Produto.hasMany(Comentario, { foreignKey: "produtoId" });
 User.hasMany(Comentario, { foreignKey: "userId" });
-Perfil.hasMany(Comentario, { foreignKey: 'userType' });

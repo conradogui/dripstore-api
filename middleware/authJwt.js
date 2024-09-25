@@ -49,21 +49,10 @@ const isAdmin = (req, res, next) => {
   });
 };
 
-const isModerator = (req, res, next) => {
-  Usuario.findByPk(req.userId).then(usuario => {
-      usuario.getPerfils().then(perfis => {
-          for (let i = 0; i < perfis.length; i++) {
-              if (perfis[i].nome === "moderador") {
-                  next();
-                  return;
-              }
-          }
-
-          res.status(403).send({
-              message: "Requer acesso de Moderador!"
-          });
-      });
-  });
+const isModerator = async (req) => {
+  const usuario = await Usuario.findByPk(req.userId);
+  const perfis = await usuario.getPerfils();
+  return perfis.some(perfil => perfil.nome === "moderador");
 };
 
 const isModeratorOrAdmin = (req, res, next) => {

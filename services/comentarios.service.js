@@ -4,6 +4,7 @@ const Comentario = db.comentarios
 const Produto = db.produto
 const Usuario = db.usuario
 
+import { authJwt } from "../middleware/authJwt.js";
 
 export const comentarioService = {
     addComment: async (req, res) => {
@@ -64,27 +65,26 @@ export const comentarioService = {
         const { id } = req.params;
         const userId = req.userId;
   
-        if (!userId) {
-          return res.status(403).json({ message: "Usuário não autenticado!" });
-        }
-  
-        const comentario = await Comentario.findByPk(id);
-  
-        if (!comentario) {
-          return res.status(404).json({ message: "Comentário não encontrado" });
-        }
-  
-
-        if (comentario.userId !== userId && !req.user.isModeratorOrAdmin) { //ver correçao dessa função (moderadores alteram e donos de comentarios tb)
-          return res.status(403).json({ message: "Ação não permitida!" });
-        }
-  
-        await comentario.destroy();
-        return res.status(200).json({ message: "Comentário removido com sucesso!" });
-      } catch (error) {
-        console.error(error);
-        return res.status(500).json({ error: "Erro ao remover comentário!" });
+      if (!userId) {
+        return res.status(403).json({ message: "Usuário não autenticado!" });
       }
-    },
-  };
-  
+
+      const comentario = await Comentario.findByPk(id);
+
+      if (!comentario) {
+        return res.status(404).json({ message: "Comentário não encontrado" });
+      }
+
+      const isModerator = await authJwt.isModerator(req);
+      if (comentario.userId !== userId && !isModerator) { 
+        return res.status(403).json({ message: "Ação não permitida!" });
+      }
+
+      await comentario.destroy();
+      return res.status(200).json({ message: "Comentário removido com sucesso!" });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Erro ao remover comentário!" });
+    }
+  },
+};
