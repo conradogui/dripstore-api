@@ -1,5 +1,8 @@
 import db from "../model/index.js";
 const Produto = db.produto
+const Curtidos = db.curtidos
+const Comentarios = db.comentarios
+const Carrinho = db.carrinho
 
 export const produtoService = {
   getAll: async (req, res) => {
@@ -86,6 +89,9 @@ export const produtoService = {
         message: `Produto: ${id} não deletado`,
       });
     }
+    await Curtidos.destroy({ where: { produtoId: id } });
+    await Carrinho.destroy({ where: { produtoId: id } });
+    await Comentarios.destroy({ where: { produtoId: id } });
     await produto.destroy();
     return res.status(200).json({
       message: `Produto deletado com sucesso`,

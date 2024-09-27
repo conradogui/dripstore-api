@@ -38,5 +38,5 @@ export const Curtidos = sequelize.define(
   }
 );
 
-Curtidos.belongsTo(Produto, { foreignKey: 'produtoId' });
-Produto.hasMany(Curtidos, { foreignKey: 'produtoId' });
+Curtidos.belongsTo(Produto, { foreignKey: 'produtoId', onDelete: 'CASCADE' });
+Produto.hasMany(Curtidos, { foreignKey: 'produtoId', onDelete: 'CASCADE' });

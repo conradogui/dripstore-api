@@ -39,6 +39,6 @@ export const Comentario = sequelize.define(
 );
 
 Comentario.belongsTo(User, { foreignKey: "userId" });
-Comentario.belongsTo(Produto, { foreignKey: "produtoId" });
-Produto.hasMany(Comentario, { foreignKey: "produtoId" });
+Comentario.belongsTo(Produto, { foreignKey: "produtoId", onDelete: 'CASCADE' });
+Produto.hasMany(Comentario, { foreignKey: "produtoId", onDelete: 'CASCADE' });
 User.hasMany(Comentario, { foreignKey: "userId" });

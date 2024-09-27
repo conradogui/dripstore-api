@@ -38,5 +38,5 @@ export const Carrinho = sequelize.define(
   }
 );
 
-Carrinho.belongsTo(Produto, { foreignKey: 'produtoId' });
-Produto.hasMany(Carrinho, { foreignKey: 'produtoId' });
+Carrinho.belongsTo(Produto, { foreignKey: 'produtoId', onDelete: 'CASCADE' });
+Produto.hasMany(Carrinho, { foreignKey: 'produtoId', onDelete: 'CASCADE' });
